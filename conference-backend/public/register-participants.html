@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Participant Registration — The 1st East Africa Bio-Inputs Conference 2027</title>
+<style>
+  :root {
+    --loam: #163762;
+    --moss: #72B846;
+    --moss-dark: #5C9838;
+    --gold: #72B846;
+    --parchment: #F6F3EC;
+    --paper: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-soft: #5c5c5c;
+    --line: #DAD2C0;
+    --error: #A23E2E;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    line-height: 1.5;
+  }
+
+  header.masthead {
+    background: var(--loam);
+    color: var(--parchment);
+    padding: 2.5rem 1.5rem 2rem;
+    border-bottom: 6px solid var(--gold);
+  }
+
+  .masthead-inner { max-width: 720px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 0.6rem;
+  }
+
+  h1.title {
+    font-size: 1.9rem;
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .subtitle {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.95rem;
+    color: #d8cfc0;
+    margin: 0 0 1rem;
+    max-width: 60ch;
+  }
+
+  .meta-row {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--parchment);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.75rem;
+    border-top: 1px solid rgba(246,243,236,0.2);
+    padding-top: 0.9rem;
+  }
+
+  .meta-row span strong {
+    display: block;
+    color: var(--gold);
+    font-size: 0.7rem;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    margin-bottom: 0.15rem;
+  }
+
+  .switch-link {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+  .switch-link a { color: var(--gold); }
+
+  main { max-width: 720px; margin: 0 auto; padding: 2.25rem 1.5rem 4rem; }
+
+  .field { margin-bottom: 1.15rem; }
+
+  label {
+    display: block;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.35rem;
+  }
+
+  label .req { color: var(--error); }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 0.65rem 0.7rem;
+    font-size: 1rem;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+  }
+
+  input:focus-visible, select:focus-visible, button:focus-visible {
+    outline: 2px solid var(--moss);
+    outline-offset: 2px;
+  }
+
+  .fee-note {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.85rem;
+    background: #EAF3E4;
+    border-left: 3px solid var(--gold);
+    padding: 0.7rem 0.9rem;
+    margin: 1.5rem 0;
+    color: var(--ink);
+    display: none;
+  }
+
+  .fee-note strong { color: var(--loam); }
+
+  button.submit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: var(--moss);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+
+  button.submit:hover { background: var(--moss-dark); }
+  button.submit:disabled { opacity: 0.6; cursor: default; }
+
+  .status-msg {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.92rem;
+    padding: 0.9rem 1rem;
+    border-radius: 3px;
+    margin-top: 1.25rem;
+    display: none;
+  }
+
+  .status-msg.success { background: #E7EEDF; border-left: 3px solid var(--moss); color: var(--moss-dark); display: block; }
+  .status-msg.success a { color: var(--loam); font-weight: 600; }
+  .status-msg.error { background: #F4E4E0; border-left: 3px solid var(--error); color: var(--error); display: block; }
+
+  footer {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+  }
+  footer a { color: var(--moss-dark); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">BIBA Kenya · Participant Registration</p>
+    <h1 class="title">The 1st East Africa Bio-Inputs Conference 2027</h1>
+    <p class="subtitle">Scaling bio-inputs for sustainable food systems transformation, climate resilience and green growth in East Africa.</p>
+    <div class="meta-row">
+      <span><strong>Dates</strong>8–12 February 2027</span>
+      <span><strong>Venue</strong>Nairobi, Kenya</span>
+      <span><strong>Convened by</strong>BIBA Kenya &amp; regional partners</span>
+    </div>
+    <p class="switch-link">Registering as an exhibitor instead? <a href="register-exhibitors.html">Go to exhibitor registration</a></p>
+  </div>
+</header>
+
+<main>
+  <form id="participant-form" novalidate>
+    <div class="field">
+      <label for="p-id-passport">ID / Passport number <span class="req">*</span></label>
+      <input type="text" id="p-id-passport" required />
+    </div>
+    <div class="field">
+      <label for="p-full-name">Full name <span class="req">*</span></label>
+      <input type="text" id="p-full-name" required />
+    </div>
+    <div class="field">
+      <label for="p-email">Email address <span class="req">*</span></label>
+      <input type="email" id="p-email" required />
+    </div>
+    <div class="field">
+      <label for="p-phone">Phone <span class="req">*</span></label>
+      <div style="display:flex; gap:0.5rem;">
+        <select id="p-country-code" style="flex: 0 0 40%;" required>
+          <option value="">Code</option>
+          <option value="+254">Kenya (+254)</option>
+          <option value="+256">Uganda (+256)</option>
+          <option value="+255">Tanzania (+255)</option>
+          <option value="+251">Ethiopia (+251)</option>
+        </select>
+        <input type="tel" id="p-phone" style="flex: 1;" required />
+      </div>
+    </div>
+    <div class="field">
+      <label for="p-country">Country</label>
+      <input type="text" id="p-country" />
+    </div>
+    <div class="field">
+      <label for="p-organization">Organization / Institution</label>
+      <input type="text" id="p-organization" />
+    </div>
+    <div class="field">
+      <label for="p-position">Position / Title</label>
+      <input type="text" id="p-position" />
+    </div>
+    <div class="field">
+      <label for="p-category">Category <span class="req">*</span></label>
+      <select id="p-category" required>
+        <option value="" disabled selected>Loading categories…</option>
+      </select>
+    </div>
+
+    <div class="fee-note" id="p-fee-note"></div>
+
+    <button type="submit" class="submit" id="p-submit">Submit registration</button>
+    <div class="status-msg" id="p-status"></div>
+  </form>
+</main>
+
+<footer>
+  Organized through a multi-stakeholder platform including BIBA Kenya, KOAN, EIPMA, ICRAF, KALRO, KEBS and regional and development partners.<br />
+  Questions? Contact the registration team via BIBA Kenya.
+</footer>
+
+<script>
+  const API_BASE = '/api';
+
+  const categorySelect = document.getElementById('p-category');
+  const pFeeNote = document.getElementById('p-fee-note');
+  let categories = [];
+
+  async function loadCategories() {
+    try {
+      const res = await fetch(`${API_BASE}/participants/categories`);
+      categories = await res.json();
+      categorySelect.innerHTML = '<option value="" disabled selected>Select a category</option>';
+      categories.forEach(cat => {
+        const opt = document.createElement('option');
+        opt.value = cat.id;
+        opt.textContent = cat.name;
+        categorySelect.appendChild(opt);
+      });
+    } catch (err) {
+      categorySelect.innerHTML = '<option value="" disabled selected>Could not load categories</option>';
+    }
+  }
+
+  categorySelect.addEventListener('change', () => {
+    const selected = categories.find(c => String(c.id) === categorySelect.value);
+    if (selected) {
+      const price = parseFloat(selected.price);
+      pFeeNote.style.display = 'block';
+      pFeeNote.innerHTML = price > 0
+        ? `<strong>Registration fee:</strong> ${price.toFixed(2)} for the ${selected.name} category.`
+        : `<strong>${selected.name}</strong> category — no fee currently set for this category.`;
+    }
+  });
+
+  loadCategories();
+
+  const participantForm = document.getElementById('participant-form');
+  const pStatus = document.getElementById('p-status');
+  const pSubmit = document.getElementById('p-submit');
+
+  participantForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    pStatus.className = 'status-msg';
+    pStatus.textContent = '';
+
+    const payload = {
+      id_passport: document.getElementById('p-id-passport').value.trim(),
+      full_name: document.getElementById('p-full-name').value.trim(),
+      email: document.getElementById('p-email').value.trim(),
+      phone: `${document.getElementById('p-country-code').value} ${document.getElementById('p-phone').value.trim()}`,
+      country: document.getElementById('p-country').value.trim() || null,
+      organization: document.getElementById('p-organization').value.trim() || null,
+      position: document.getElementById('p-position').value.trim() || null,
+      category_id: categorySelect.value,
+      answers: {},
+    };
+
+    pSubmit.disabled = true;
+    pSubmit.textContent = 'Submitting…';
+
+    try {
+      const res = await fetch(`${API_BASE}/participants`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        pStatus.className = 'status-msg success';
+        pStatus.innerHTML = `Registration received for ${data.participant.full_name}. Amount due: ${parseFloat(data.amount_due).toFixed(2)}. <a href="confirm-payment.html?type=participant&id=${data.participant.id}">Click here once you've paid, to submit your payment reference.</a>`;
+        participantForm.reset();
+        pFeeNote.style.display = 'none';
+      } else {
+        pStatus.className = 'status-msg error';
+        pStatus.textContent = data.error || 'Something went wrong. Please try again.';
+      }
+    } catch (err) {
+      pStatus.className = 'status-msg error';
+      pStatus.textContent = 'Could not reach the server. Please check your connection and try again.';
+    } finally {
+      pSubmit.disabled = false;
+      pSubmit.textContent = 'Submit registration';
+    }
+  });
+</script>
+
+</body>
+</html>

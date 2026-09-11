@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Exhibitor Registration — The 1st East Africa Bio-Inputs Conference 2027</title>
+<style>
+  :root {
+    --loam: #163762;
+    --moss: #72B846;
+    --moss-dark: #5C9838;
+    --gold: #72B846;
+    --parchment: #F6F3EC;
+    --paper: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-soft: #5c5c5c;
+    --line: #DAD2C0;
+    --error: #A23E2E;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--parchment);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+    line-height: 1.5;
+  }
+
+  header.masthead {
+    background: var(--loam);
+    color: var(--parchment);
+    padding: 2.5rem 1.5rem 2rem;
+    border-bottom: 6px solid var(--gold);
+  }
+
+  .masthead-inner { max-width: 720px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--gold);
+    margin: 0 0 0.6rem;
+  }
+
+  h1.title {
+    font-size: 1.9rem;
+    margin: 0 0 0.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .subtitle {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.95rem;
+    color: #d8cfc0;
+    margin: 0 0 1rem;
+    max-width: 60ch;
+  }
+
+  .meta-row {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.85rem;
+    color: var(--parchment);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.75rem;
+    border-top: 1px solid rgba(246,243,236,0.2);
+    padding-top: 0.9rem;
+  }
+
+  .meta-row span strong {
+    display: block;
+    color: var(--gold);
+    font-size: 0.7rem;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    margin-bottom: 0.15rem;
+  }
+
+  .switch-link {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+  .switch-link a { color: var(--gold); }
+
+  main { max-width: 720px; margin: 0 auto; padding: 2.25rem 1.5rem 4rem; }
+
+  .field { margin-bottom: 1.15rem; }
+
+  label {
+    display: block;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.35rem;
+  }
+
+  label .req { color: var(--error); }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="url"],
+  textarea {
+    width: 100%;
+    padding: 0.65rem 0.7rem;
+    font-size: 1rem;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: 3px;
+  }
+
+  textarea { min-height: 5.5rem; resize: vertical; }
+
+  input:focus-visible, textarea:focus-visible, button:focus-visible {
+    outline: 2px solid var(--moss);
+    outline-offset: 2px;
+  }
+
+  .radio-row {
+    display: flex;
+    gap: 1.5rem;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.95rem;
+  }
+
+  .radio-row label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--ink);
+    font-size: 0.95rem;
+    margin-bottom: 0;
+  }
+
+  .fee-note {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.85rem;
+    background: #EAF3E4;
+    border-left: 3px solid var(--gold);
+    padding: 0.7rem 0.9rem;
+    margin: 1.5rem 0;
+    color: var(--ink);
+  }
+
+  .fee-note strong { color: var(--loam); }
+
+  button.submit {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    background: var(--moss);
+    color: #fff;
+    border: none;
+    padding: 0.85rem 1.6rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+  }
+
+  button.submit:hover { background: var(--moss-dark); }
+  button.submit:disabled { opacity: 0.6; cursor: default; }
+
+  .status-msg {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.92rem;
+    padding: 0.9rem 1rem;
+    border-radius: 3px;
+    margin-top: 1.25rem;
+    display: none;
+  }
+
+  .status-msg.success { background: #E7EEDF; border-left: 3px solid var(--moss); color: var(--moss-dark); display: block; }
+  .status-msg.success a { color: var(--loam); font-weight: 600; }
+  .status-msg.error { background: #F4E4E0; border-left: 3px solid var(--error); color: var(--error); display: block; }
+
+  footer {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-align: center;
+    padding: 2rem 1.5rem 3rem;
+  }
+  footer a { color: var(--moss-dark); }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">BIBA Kenya · Exhibitor Registration</p>
+    <h1 class="title">The 1st East Africa Bio-Inputs Conference 2027</h1>
+    <p class="subtitle">Scaling bio-inputs for sustainable food systems transformation, climate resilience and green growth in East Africa.</p>
+    <div class="meta-row">
+      <span><strong>Dates</strong>8–12 February 2027</span>
+      <span><strong>Venue</strong>Nairobi, Kenya</span>
+      <span><strong>Convened by</strong>BIBA Kenya &amp; regional partners</span>
+    </div>
+    <p class="switch-link">Registering as a participant instead? <a href="register-participants.html">Go to participant registration</a></p>
+  </div>
+</header>
+
+<main>
+  <form id="exhibitor-form" novalidate>
+    <div class="field">
+      <label for="e-id-passport">ID / Passport number <span class="req">*</span></label>
+      <input type="text" id="e-id-passport" required />
+    </div>
+    <div class="field">
+      <label for="e-full-name">Full name <span class="req">*</span></label>
+      <input type="text" id="e-full-name" required />
+    </div>
+    <div class="field">
+      <label for="e-email">Email address <span class="req">*</span></label>
+      <input type="email" id="e-email" required />
+    </div>
+    <div class="field">
+      <label for="e-phone">Phone <span class="req">*</span></label>
+      <div style="display:flex; gap:0.5rem;">
+        <select id="e-country-code" style="flex: 0 0 40%;" required>
+          <option value="">Code</option>
+          <option value="+254">Kenya (+254)</option>
+          <option value="+256">Uganda (+256)</option>
+          <option value="+255">Tanzania (+255)</option>
+          <option value="+251">Ethiopia (+251)</option>
+        </select>
+        <input type="tel" id="e-phone" style="flex: 1;" required />
+      </div>
+    </div>
+    <div class="field">
+      <label for="e-organization">Name of organization or company (write "individual" if none) <span class="req">*</span></label>
+      <input type="text" id="e-organization" required />
+    </div>
+    <div class="field">
+      <label for="e-address">Address <span class="req">*</span></label>
+      <input type="text" id="e-address" required />
+    </div>
+    <div class="field">
+      <label for="e-country">Country <span class="req">*</span></label>
+      <input type="text" id="e-country" required />
+    </div>
+    <div class="field">
+      <label for="e-description">Description of what you will exhibit <span class="req">*</span></label>
+      <textarea id="e-description" required></textarea>
+    </div>
+    <div class="field">
+      <label>Payment method <span class="req">*</span></label>
+      <div class="radio-row">
+        <label><input type="radio" name="e-payment" value="mpesa" required /> Mpesa</label>
+        <label><input type="radio" name="e-payment" value="bank" /> Bank</label>
+      </div>
+    </div>
+    <div class="field">
+      <label for="e-website">Website / social media link</label>
+      <input type="url" id="e-website" placeholder="https://" />
+    </div>
+
+    <button type="submit" class="submit" id="e-submit">Submit registration</button>
+    <div class="status-msg" id="e-status"></div>
+  </form>
+</main>
+
+<footer>
+  Organized through a multi-stakeholder platform including BIBA Kenya, KOAN, EIPMA, ICRAF, KALRO, KEBS and regional and development partners.<br />
+  Questions? Contact the registration team via BIBA Kenya.
+</footer>
+
+<script>
+  const API_BASE = '/api';
+
+  const exhibitorForm = document.getElementById('exhibitor-form');
+  const eStatus = document.getElementById('e-status');
+  const eSubmit = document.getElementById('e-submit');
+
+  exhibitorForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    eStatus.className = 'status-msg';
+    eStatus.textContent = '';
+
+    const paymentMethodEl = document.querySelector('input[name="e-payment"]:checked');
+
+    const payload = {
+      id_passport: document.getElementById('e-id-passport').value.trim(),
+      full_name: document.getElementById('e-full-name').value.trim(),
+      email: document.getElementById('e-email').value.trim(),
+      phone: `${document.getElementById('e-country-code').value} ${document.getElementById('e-phone').value.trim()}`,
+      organization: document.getElementById('e-organization').value.trim(),
+      address: document.getElementById('e-address').value.trim(),
+      country: document.getElementById('e-country').value.trim(),
+      description: document.getElementById('e-description').value.trim(),
+      payment_method: paymentMethodEl ? paymentMethodEl.value : '',
+      website_link: document.getElementById('e-website').value.trim() || null,
+    };
+
+    if (!payload.payment_method) {
+      eStatus.className = 'status-msg error';
+      eStatus.textContent = 'Please select a payment method.';
+      return;
+    }
+
+    eSubmit.disabled = true;
+    eSubmit.textContent = 'Submitting…';
+
+    try {
+      const res = await fetch(`${API_BASE}/exhibitors`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        eStatus.className = 'status-msg success';
+        eStatus.innerHTML = `Registration received for ${data.exhibitor.full_name}. <a href="confirm-payment.html?type=exhibitor&id=${data.exhibitor.id}">Click here once you've paid, to submit your payment reference.</a>`;
+        exhibitorForm.reset();
+      } else {
+        eStatus.className = 'status-msg error';
+        eStatus.textContent = data.error || 'Something went wrong. Please try again.';
+      }
+    } catch (err) {
+      eStatus.className = 'status-msg error';
+      eStatus.textContent = 'Could not reach the server. Please check your connection and try again.';
+    } finally {
+      eSubmit.disabled = false;
+      eSubmit.textContent = 'Submit registration';
+    }
+  });
+</script>
+
+</body>
+</html>
