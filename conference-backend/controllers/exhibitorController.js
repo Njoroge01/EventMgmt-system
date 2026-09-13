@@ -100,42 +100,73 @@ async function list(req, res) {
     }
 }
 // PATCH /api/exhibitors/:id/submit-payment
+// PATCH /api/exhibitors/:id/submit-payment
 async function submitPayment(req, res) {
     const { id } = req.params;
     const { payment_reference } = req.body;
 
     if (!payment_reference) {
-        return res.status(400).json({ error: 'payment_reference is required' });
+        return res.status(400).json({
+            error: 'Payment reference is required'
+        });
+    }
+
+    if (!req.file) {
+        return res.status(400).json({
+            error: 'Payment proof is required'
+        });
     }
 
     try {
+        const paymentProofUrl =
+            `/uploads/payments/${req.file.filename}`;
+
         const updated = await pool.query(
             `UPDATE exhibitors
-             SET status = 'payment_submitted', payment_reference = $1
-             WHERE id = $2 RETURNING *`,
-            [payment_reference, id]
+             SET
+                status = 'payment_submitted',
+                payment_reference = $1,
+                payment_proof_url = $2
+             WHERE id = $3
+             RETURNING *`,
+            [
+                payment_reference,
+                paymentProofUrl,
+                id
+            ]
         );
 
         if (updated.rows.length === 0) {
-            return res.status(404).json({ error: 'Exhibitor not found' });
+            return res.status(404).json({
+                error: 'Exhibitor not found'
+            });
         }
 
+        const exhibitor = updated.rows[0];
+
         sendPaymentReceivedEmail(
-            updated.rows[0].email,
-            updated.rows[0].full_name,
-            'exhibitor'
-        ).catch((err) => console.error('Failed to send payment-received email:', err));
+            exhibitor.email,
+            exhibitor.full_name,
+            exhibitor.id,
+            payment_reference
+        ).catch((err) => {
+            console.error('Failed to send payment-received email:', err);
+        });
 
         res.json({
-            message: 'Payment reference received. We will confirm shortly.',
-            exhibitor: updated.rows[0],
+            message:
+                'Payment proof submitted successfully. Your payment is pending verification.',
+            exhibitor
         });
+
     } catch (err) {
-        console.error('Submit payment error:', err);
-        res.status(500).json({ error: 'Something went wrong submitting payment' });
+        console.error('Submit exhibitor payment error:', err);
+
+        res.status(500).json({
+            error: 'Something went wrong while submitting payment proof'
+        });
     }
 }
-
 // PATCH /api/admin/exhibitors/:id/verify
 async function verify(req, res) {
     const { id } = req.params;

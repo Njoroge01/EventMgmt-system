@@ -86,34 +86,64 @@ async function submitPayment(req, res) {
     const { payment_reference } = req.body;
 
     if (!payment_reference) {
-        return res.status(400).json({ error: 'payment_reference is required' });
+        return res.status(400).json({
+            error: 'M-Pesa payment reference is required'
+        });
+    }
+
+    if (!req.file) {
+        return res.status(400).json({
+            error: 'Payment proof is required'
+        });
     }
 
     try {
+        const paymentProofUrl =
+            `/uploads/payments/${req.file.filename}`;
+
         const updated = await pool.query(
             `UPDATE participants
-             SET status = 'payment_submitted', payment_reference = $1
-             WHERE id = $2 RETURNING *`,
-            [payment_reference, id]
+             SET
+                status = 'payment_submitted',
+                payment_reference = $1,
+                payment_proof_url = $2
+             WHERE id = $3
+             RETURNING *`,
+            [
+                payment_reference,
+                paymentProofUrl,
+                id
+            ]
         );
 
         if (updated.rows.length === 0) {
-            return res.status(404).json({ error: 'Participant not found' });
+            return res.status(404).json({
+                error: 'Registration not found'
+            });
         }
 
+        const participant = updated.rows[0];
+
         sendPaymentReceivedEmail(
-            updated.rows[0].email,
-            updated.rows[0].full_name,
-            'participant'
-        ).catch((err) => console.error('Failed to send payment-received email:', err));
+            participant.email,
+            participant.full_name,
+            participant.id,
+            payment_reference
+        ).catch(err => {
+            console.error('Payment email error:', err);
+        });
 
         res.json({
-            message: 'Payment reference received. We will confirm shortly.',
-            participant: updated.rows[0],
+            message: 'Payment proof submitted successfully. Your payment is pending verification.',
+            participant
         });
+
     } catch (err) {
         console.error('Submit payment error:', err);
-        res.status(500).json({ error: 'Something went wrong submitting payment' });
+
+        res.status(500).json({
+            error: 'Something went wrong while submitting payment proof'
+        });
     }
 }
 

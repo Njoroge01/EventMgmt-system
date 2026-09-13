@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS participant_categories (
 
 CREATE TABLE IF NOT EXISTS participants (
     id SERIAL PRIMARY KEY,
+    id_passport VARCHAR(100) NOT NULL,
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(50) NOT NULL,
