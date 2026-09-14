@@ -1,0 +1,13 @@
+Selected conference website images
+
+These are the strongest images selected from the supplied ZIP.
+
+hero-community-agroecology.jpg - Recommended homepage hero
+soil-and-farmer.jpg - About/agroecology or soil section
+bioinput-training.jpg - Training/community engagement
+bioinput-demonstration.jpg - Bio-input demonstration/activity
+bioinput-products.jpg - Bio-input products/exhibition
+agroecological-farm.jpg - Sustainable farming/food systems section
+bioinput-materials.jpg - Bio-input materials/production section
+
+Images were resized to a maximum width of 2400px and compressed for web use.

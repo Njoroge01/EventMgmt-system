@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowRight,
   CalendarDays,
@@ -24,38 +25,66 @@ export default function HomePage() {
   return (
     <>
       <section className="hero">
+  <div className="hero-image">
+    <Image
+      src="/images/hero-agroecology.jpg"
+      alt="Agroecological farming in East Africa"
+      fill
+      priority
+      sizes="100vw"
+      className="hero-image-img"
+    />
+  </div>
+
   <div className="hero-overlay" />
 
   <div className="container hero-content">
+
+    
 
     <span className="eyebrow">
       EAST AFRICA • NAIROBI • 2027
     </span>
 
-    <h1>The 1st East Africa Bio-Inputs Conference</h1>
+    <h1>
+      The 1st East Africa Bio-Inputs Conference
+    </h1>
 
     <p className="hero-theme">
       Scaling bio-inputs for sustainable food systems transformation,
       climate resilience and green growth in East Africa
     </p>
 
-    
+    <div className="hero-meta">
+      <span>
+        <CalendarDays size={18} />
+        10th–11th February 2027
+      </span>
 
-          <div className="hero-meta">
-            <span><CalendarDays size={18} /> 10th–11th February 2027</span>
-            <span><MapPin size={18} /> Nairobi, Kenya</span>
-          </div>
+      <span>
+        <MapPin size={18} />
+        Nairobi, Kenya
+      </span>
+    </div>
 
-          <div className="hero-actions">
-            <Link className="button button-primary" href="/registration">
-              Register Now <ArrowRight size={18} />
-            </Link>
-            <Link className="button button-light" href="/abstracts">
-              Submit Abstract <FileText size={18} />
-            </Link>
-          </div>
-        </div>
-      </section>
+    <div className="hero-actions">
+      <Link
+        className="button button-primary"
+        href="/registration"
+      >
+        Register Now <ArrowRight size={18} />
+      </Link>
+
+      <Link
+        className="button button-light"
+        href="/abstracts"
+      >
+        Submit Abstract <FileText size={18} />
+      </Link>
+    </div>
+
+  </div>
+</section>
 
       <section className="quick-links">
         <div className="container quick-grid">
@@ -67,26 +96,48 @@ export default function HomePage() {
       </section>
 
       <section className="section">
-        <div className="container two-column">
-          <div>
-            <span className="section-label">ABOUT THE CONFERENCE</span>
-            <h2>Building a stronger bio-inputs ecosystem for East Africa</h2>
-          </div>
-          <div className="prose">
-            <p>
-              The conference brings together policymakers, researchers, investors, manufacturers,
-              development partners, farmer organizations, private sector actors and practitioners
-              working around bio-inputs and sustainable food systems.
-            </p>
-            <p>
-              It provides a platform to showcase research and innovations, strengthen policy
-              dialogue, improve awareness and adoption, mobilize investment and create practical
-              partnerships across the region.
-            </p>
-            <Link className="text-link" href="/about">Read more about the conference <ArrowRight size={16} /></Link>
-          </div>
-        </div>
-      </section>
+  <div className="container two-column about-home">
+
+    <div className="about-image">
+      <Image
+        src="/images/agroecology-farmer.jpg"
+        alt="Farmer working within an agroecological farming system"
+        width={700}
+        height={550}
+      />
+    </div>
+
+    <div className="prose">
+      <span className="section-label">
+        ABOUT THE CONFERENCE
+      </span>
+
+      <h2>
+        Building a stronger bio-inputs ecosystem for East Africa
+      </h2>
+
+      <p>
+        The conference brings together policymakers, researchers,
+        investors, manufacturers, development partners, farmer
+        organizations, private sector actors and practitioners
+        working around bio-inputs and sustainable food systems.
+      </p>
+
+      <p>
+        It provides a platform to showcase research and innovations,
+        strengthen policy dialogue, improve awareness and adoption,
+        mobilize investment and create practical partnerships
+        across the region.
+      </p>
+
+      <Link className="text-link" href="/about">
+        Read more about the conference
+        <ArrowRight size={16} />
+      </Link>
+    </div>
+
+  </div>
+</section>
 
       <section className="section section-soft">
         <div className="container">
@@ -110,7 +161,32 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+<section className="image-banner">
+  <div className="container">
+    <div className="image-banner-inner">
 
+      <Image
+        src="/images/bioinput-materials.jpg"
+        alt="Bio-inputs and sustainable agriculture"
+        fill
+        sizes="(max-width: 850px) 100vw, 1180px"
+      />
+
+      <div className="image-banner-overlay" />
+
+      <div className="image-banner-content">
+        <span className="section-label">
+          SUSTAINABLE FOOD SYSTEMS
+        </span>
+
+        <h2>
+          Advancing bio-inputs for resilient agricultural systems
+        </h2>
+      </div>
+
+    </div>
+  </div>
+</section>
       <section className="section">
         <div className="container callout">
           <div>
