@@ -24,6 +24,7 @@ import {
   adminFetchJson,
   adminLogout,
 } from "@/lib/adminApi";
+const API = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
 
 type Participant = {
   id: number;
@@ -77,6 +78,58 @@ type View =
   | "categories"
   | "settings";
 
+async function viewPaymentProof(
+  type: "participant" | "exhibitor",
+  id: number
+) {
+  const token = localStorage.getItem("admin_token");
+
+  if (!token) {
+    alert("Admin session expired. Please log in again.");
+    return;
+  }
+
+  const endpoint =
+    type === "participant"
+      ? `${API}/admin/participants/${id}/payment-proof`
+      : `${API}/admin/exhibitors/${id}/payment-proof`;
+
+  const popup = window.open("", "_blank");
+
+  if (!popup) {
+    alert("Please allow pop-ups to view the payment proof.");
+    return;
+  }
+
+  try {
+    const response = await fetch(endpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({}));
+      popup.close();
+      alert(error.error || "Unable to load payment proof.");
+      return;
+    }
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+
+    popup.location.href = url;
+
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 60000);
+  } catch (error) {
+    console.error("Error loading payment proof:", error);
+    popup.close();
+    alert("Unable to load payment proof.");
+  }
+}
+
 export default function AdminPage() {
   const router = useRouter();
 
@@ -100,7 +153,7 @@ export default function AdminPage() {
     useState<Exhibitor | null>(null);
 
   const [exhibitorFee, setExhibitorFee] = useState("");
-
+  
   useEffect(() => {
     const token = localStorage.getItem("admin_token");
 
@@ -199,6 +252,7 @@ export default function AdminPage() {
     router.replace("/admin/login");
   }
 
+  
   const pendingParticipants = participants.filter(
     (p) =>
       p.status === "pending" ||
@@ -1028,15 +1082,12 @@ function ParticipantDetails({
           </div>
 
           {participant.payment_proof_url ? (
-            <a
-              href={`http://localhost:5000${participant.payment_proof_url}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="button button-outline"
-            >
-              <ExternalLink size={17} />
-              View Payment Proof
-            </a>
+            <button
+  type="button"
+  onClick={() => viewPaymentProof("participant", participant.id)}
+>
+  View Payment Proof
+</button>
           ) : (
             <span className="muted">
               No payment proof uploaded.
@@ -1286,15 +1337,12 @@ function ExhibitorDetails({
           </div>
 
           {exhibitor.payment_proof_url ? (
-            <a
-              href={`http://localhost:5000${exhibitor.payment_proof_url}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="button button-outline"
-            >
-              <ExternalLink size={17} />
-              View Payment Proof
-            </a>
+            <button
+  type="button"
+  onClick={() => viewPaymentProof("exhibitor", exhibitor.id)}
+>
+  View Payment Proof
+</button>
           ) : (
             <span className="muted">
               No payment proof uploaded.

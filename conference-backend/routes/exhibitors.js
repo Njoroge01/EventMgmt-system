@@ -1,8 +1,14 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 const router = express.Router();
+const uploadDir = path.join(__dirname, '..', 'uploads', 'payments');
+
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, { recursive: true });
+}
 
 const exhibitorController = require('../controllers/exhibitorController');
 const settingsController = require('../controllers/settingsController');
@@ -13,8 +19,8 @@ const settingsController = require('../controllers/settingsController');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'public/uploads/payments/');
-    },
+    cb(null, uploadDir);
+},
 
     filename: (req, file, cb) => {
         const uniqueName =

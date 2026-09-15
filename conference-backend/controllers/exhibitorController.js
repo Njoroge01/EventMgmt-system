@@ -145,11 +145,10 @@ async function submitPayment(req, res) {
         const exhibitor = updated.rows[0];
 
         sendPaymentReceivedEmail(
-            exhibitor.email,
-            exhibitor.full_name,
-            exhibitor.id,
-            payment_reference
-        ).catch((err) => {
+    exhibitor.email,
+    exhibitor.full_name,
+    'exhibitor'
+).catch((err) => {
             console.error('Failed to send payment-received email:', err);
         });
 

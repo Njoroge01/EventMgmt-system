@@ -9,7 +9,7 @@ const participantController = require('../controllers/participantController');
 const categoryController = require('../controllers/categoryController');
 
 // Make sure the payment upload directory exists
-const uploadDir = path.join(__dirname, '..', 'public', 'uploads', 'payments');
+const uploadDir = path.join(__dirname, '..', 'uploads', 'payments');
 
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir, { recursive: true });

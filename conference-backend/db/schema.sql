@@ -38,8 +38,9 @@ CREATE TABLE IF NOT EXISTS participants (
     position VARCHAR(255),
     category_id INTEGER REFERENCES participant_categories(id),
     answers JSONB DEFAULT '{}',           -- category-specific answers, once the field list is final
-    status VARCHAR(20) NOT NULL DEFAULT 'pending', -- pending | verified | rejected
-    payment_reference TEXT,               -- M-Pesa message, bank slip ref, etc. - filled in once that flow is built
+    status VARCHAR(30) NOT NULL DEFAULT 'pending', -- pending | payment_submitted | verified | rejected
+    payment_reference TEXT,               -- M-Pesa message or bank slip reference
+    payment_proof_url TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
@@ -49,6 +50,7 @@ CREATE TABLE IF NOT EXISTS participants (
 -- is still undecided - it's configurable via the "settings" table, not hardcoded here.
 CREATE TABLE IF NOT EXISTS exhibitors (
     id SERIAL PRIMARY KEY,
+    id_passport VARCHAR(100) NOT NULL,
     full_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(50) NOT NULL,
@@ -59,12 +61,13 @@ CREATE TABLE IF NOT EXISTS exhibitors (
     payment_method VARCHAR(20) NOT NULL,  -- 'mpesa' | 'bank' - chosen at registration
     website_link VARCHAR(500),
     price NUMERIC(10, 2) NOT NULL,        -- looked up from settings.exhibitor_fee at registration time
-    status VARCHAR(20) NOT NULL DEFAULT 'pending',
-    payment_reference TEXT,               -- actual proof of payment, added once that flow is built
+    status VARCHAR(30) NOT NULL DEFAULT 'pending', -- pending | payment_submitted | verified | rejected
+    payment_reference TEXT,               -- M-Pesa message or bank slip reference
+    payment_proof_url TEXT,
     created_at TIMESTAMP DEFAULT NOW()
 );
 
--- Tickets are generated once a participant or exhibitor is verified.
+-- Ticket records can be generated later for verified participants or exhibitors.
 CREATE TABLE IF NOT EXISTS tickets (
     id SERIAL PRIMARY KEY,
     ticket_number VARCHAR(50) UNIQUE NOT NULL,

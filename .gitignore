@@ -15,3 +15,6 @@ public/uploads/
 
 # Local backup files
 *.patch
+
+# Private uploaded files
+conference-backend/uploads/

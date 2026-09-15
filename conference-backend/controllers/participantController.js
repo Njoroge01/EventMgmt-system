@@ -125,11 +125,10 @@ async function submitPayment(req, res) {
         const participant = updated.rows[0];
 
         sendPaymentReceivedEmail(
-            participant.email,
-            participant.full_name,
-            participant.id,
-            payment_reference
-        ).catch(err => {
+    participant.email,
+    participant.full_name,
+    'participant'
+).catch(err => {
             console.error('Payment email error:', err);
         });
 
