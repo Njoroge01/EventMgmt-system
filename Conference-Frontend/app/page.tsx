@@ -27,7 +27,7 @@ export default function HomePage() {
       <section className="hero">
   <div className="hero-image">
     <Image
-      src="/images/hero-agroecology.jpg"
+      src="/images/bioinput-materials.jpg"
       alt="Agroecological farming in East Africa"
       fill
       priority
@@ -166,7 +166,7 @@ export default function HomePage() {
     <div className="image-banner-inner">
 
       <Image
-        src="/images/bioinput-materials.jpg"
+        src="/images/hero-agroecology.jpg"
         alt="Bio-inputs and sustainable agriculture"
         fill
         sizes="(max-width: 850px) 100vw, 1180px"

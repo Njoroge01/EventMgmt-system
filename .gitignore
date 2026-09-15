@@ -1,0 +1,17 @@
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+
+# Local uploads
+public/uploads/
+
+# Local backup files
+*.patch
